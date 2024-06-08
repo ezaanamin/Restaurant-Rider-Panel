@@ -9,7 +9,7 @@ import { LoginRider } from '../../redux/slice/API';
 import { useDispatch } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react';
-import { BASE_URL } from '@env';
+
 
 function Login({ navigation }) {
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ function Login({ navigation }) {
         }
       } catch (error) {
         console.log("Error:", error); 
-        console.log(`${BASE_URL}riders/login`);
+        console.log(`{BASE_URL}/riders/login`);
         Alert.alert("Login Failed", "Invalid email or password. Please try again.");
       }
     }
@@ -71,6 +71,25 @@ function Login({ navigation }) {
   //   // Code to execute after the 1-second delay
   //   console.log('useEffectCallback called!');
   // };
+
+  useEffect(() => {
+    const getToken = async () => {
+      try {
+        const token = await SecureStore.getItemAsync('authToken');
+        console.log(token,'token')
+        if (token) {
+          navigation.navigate('Home');
+        } else {
+        
+        }
+      } catch (error) {
+        console.error('Error while getting token:', error);
+        
+      }
+    };
+
+    getToken();
+  }, [navigation]);
   return (
 <View style={styles.container}>
       <LinearGradient

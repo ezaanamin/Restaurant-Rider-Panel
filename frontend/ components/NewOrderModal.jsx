@@ -10,7 +10,7 @@ import * as SecureStore from 'expo-secure-store';
 const NewOrderModal = ({ Customer_name, address, order_number }) => {
   const dispatch = useDispatch();
   const userContext = useContext(UserContext);
-  const { SetNewOrderModal, SetRiderOrderData,NewOrderModal_ } = userContext;
+  const { SetNewOrderModal, SetRiderOrderData,NewOrderModal_ } =userContext;
   const handleConfirm = async ({status,order_number}) => {
     const token = await SecureStore.getItemAsync('authToken');
     // console.log(result,'ezaan')
@@ -19,12 +19,15 @@ const NewOrderModal = ({ Customer_name, address, order_number }) => {
 
     // console.log(orders_data)
 
+console.log(order_number,'order numbers');
+console.log(status,'status');
 
     try {
       const action = await dispatch(UpdateOrders({ token: token, status: status, order_number: order_number }));
       if (action.payload) {
-        await SetRiderOrderData([]);
-        await SetRiderOrderData(action.payload.orders);
+        console.log(action.payload,'action payload');
+        // await SetRiderOrderData([]);
+        await SetRiderOrderData(action.payload);
         SetNewOrderModal(false);
       }
     } catch (error) {
@@ -49,18 +52,18 @@ const NewOrderModal = ({ Customer_name, address, order_number }) => {
             </View>
           </View>
           <View style={styles.confirmButtons}>
-            <TouchableOpacity
-              style={styles.confirmButton}
-              onPress={() => handleConfirm('Accept', order_number)}
-            >
-              <Text style={styles.confirmButtonText}>Accept</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.confirmButtonReject}
-              onPress={() => handleConfirm('Reject', order_number)}
-            >
-              <Text style={styles.confirmButtonText}>Reject</Text>
-            </TouchableOpacity>
+          <TouchableOpacity
+  style={styles.confirmButton}
+  onPress={() => handleConfirm({status: 'Accept', order_number})}
+>
+  <Text style={styles.confirmButtonText}>Accept</Text>
+</TouchableOpacity>
+<TouchableOpacity
+  style={styles.confirmButtonReject}
+  onPress={() => handleConfirm({status: 'Reject', order_number})}
+>
+  <Text style={styles.confirmButtonText}>Reject</Text>
+</TouchableOpacity>
           </View>
         </View>
       </Modal>

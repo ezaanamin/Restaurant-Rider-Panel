@@ -13,7 +13,8 @@ const RiderSchema = new mongoose.Schema(
       default: 0
     },
     rating: Number,
-    assigned_order: [Number]
+    assigned_order: [Number],
+    Notification:[Number]
   },
   { timestamps: true }
 );

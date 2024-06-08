@@ -212,6 +212,24 @@ let tokenheaders=false;
   }
 }
 
+export const PushNotification = async (data) => {
+
+
+ const result= await Orders.findById(data);
+
+ if(result)
+  {
+    // console.log(result.rider);
+   let r= await Rider.findById(result.rider)
+   console.log(r);
+  }
+  else
+  {
+    console.log("error");
+  }
+
+
+}
 // changeStream.on('change', async (data) => {
 //   try {
 //     const fullDocument = await Orders.findOne({ _id: data.documentKey._id });
@@ -336,6 +354,8 @@ export const UpdateOrders = async (req, res) => {
 
         orders.push(updatedDoc);
         await client.set(rider.name, JSON.stringify(orders));
+        console.log(orders,'orders');
+
         return res.json({ orders: orders });
         }
         else

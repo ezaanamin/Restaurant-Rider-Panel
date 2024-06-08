@@ -4,7 +4,6 @@ import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux'; 
 import { RiderInformation, NewOrdersDisplay } from '../../redux/slice/API';
 import io from "socket.io-client"
-import { BASE_URL } from '@env';
 import { useState } from 'react';
 import NewOrderModal from '../../ components/NewOrderModal';
 import { UserContext } from '../../contextState/contextState';
@@ -22,9 +21,9 @@ function Home({ navigation }) {
     const getTokenAndFetchOrders = async () => {
       try {
         const token = await SecureStore.getItemAsync('authToken');
-      console.log(token,'token')
+      // console.log(token,'token')
    
-        const newsocket = io.connect('{BASE_URL}', {
+        const newsocket = io.connect('{BASE_URL}/', {
           query: {
             token: token
           }
@@ -54,11 +53,35 @@ function Home({ navigation }) {
     getTokenAndFetchOrders();
   }, [dispatch]);
 
+
+  useEffect(() => {
+    let tokenAvailable = false;
+
+    const checkToken = async () => {
+        const token = await SecureStore.getItemAsync('authToken');
+        if (token) {
+            tokenAvailable = true;
+        }
+    };
+
+    const removeListener = navigation.addListener("beforeRemove", (e) => {
+        if (tokenAvailable) {
+            e.preventDefault();
+        }
+    });
+
+    checkToken(); 
+
+    return removeListener;
+}, [navigation]);
+
+
+
   useEffect(() => {
     if (socket) {
         socket.on("new_order", async (data) => {
             console.log(data[0].status, 'new_order');
-            alert("new_order!!!!")
+            // alert("new_order!!!!")
           
             await SetNewOrderData(data);
             if(data[0].status=="Pending")

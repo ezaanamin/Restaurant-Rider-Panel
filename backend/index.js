@@ -34,7 +34,7 @@ import CustomersReviews from "./model/CustomerReviews.js"
 import http from "http"
 import { Server } from 'socket.io';
 import { authorizeToken } from "./controllers/rider.js"
-import { NewOrdersDisplay } from "./controllers/rider.js"
+import { NewOrdersDisplay,PushNotification } from "./controllers/rider.js"
 
 dotenv.config();
 const app=express()
@@ -93,7 +93,7 @@ app.use('/payment',PaymentRoutes)
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.BASE_URL, 
+    origin: "{BASE_URL}/", 
     methods: ["GET", "POST"]
   }
 });
@@ -107,6 +107,9 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
+
+    console.log(changeStream)
+
   });
 });
 
@@ -119,7 +122,11 @@ changeStream.on('change', async (data) => {
     NewOrdersDisplay(token,data)
   } else {
 
-    console.log('Token not available. Waiting for connection...');
+    // console.log('Token not available. Waiting for connection...');
+    let id=data.documentKey._id.toString();
+    PushNotification(id)
+    
+    // console.log();
   }
 });
 
