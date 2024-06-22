@@ -45,7 +45,7 @@ function Login({ navigation }) {
               action.payload.token
             );
             // console.log("Token stored successfully.");
-            navigation.navigate('Home');
+            navigation.navigate('MainTabs');
           } catch (error) {
             console.log("Error:", error); // Log error here
             Alert.alert("Error", "Failed to store token.");
@@ -53,7 +53,7 @@ function Login({ navigation }) {
         }
       } catch (error) {
         console.log("Error:", error); 
-        console.log(`{BASE_URL}/riders/login`);
+        console.log(`BASE_URL/riders/login`);
         Alert.alert("Login Failed", "Invalid email or password. Please try again.");
       }
     }
@@ -78,7 +78,7 @@ function Login({ navigation }) {
         const token = await SecureStore.getItemAsync('authToken');
         console.log(token,'token')
         if (token) {
-          navigation.navigate('Home');
+          navigation.navigate('MainTabs');
         } else {
         
         }

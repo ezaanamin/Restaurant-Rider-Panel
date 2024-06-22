@@ -7,7 +7,7 @@ export const LoginRider = createAsyncThunk(
   'post/postRequest',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`{BASE_URL}/riders/login`, data);
+      const response = await axios.post(`BASE_URL/riders/login`, data);
       console.log("Response:", response);
       return response.data;
     } catch (error) {
@@ -25,7 +25,7 @@ export const RiderInformation = createAsyncThunk(
   'post/RiderInformation',
   async ({ rejectWithValue, token }) => {
     try {
-      const response = await axios.post(`{BASE_URL}/riders/information`, {}, {
+      const response = await axios.post(`BASE_URL/riders/information`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -47,7 +47,7 @@ export const NewOrdersDisplay = createAsyncThunk(
   'post/NewOrdersDisplay',
   async ({ rejectWithValue, token }) => {
     try {
-      const response = await axios.post(`{BASE_URL}/new_orders`, {}, {
+      const response = await axios.post(`BASE_URL/new_orders`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -71,7 +71,7 @@ export const UpdateOrders = createAsyncThunk(
     // console.log(token,status,order_number);
 
     try {
-      const response = await axios.post(`{BASE_URL}/riders/update`, {status:status,order_number:order_number}, {
+      const response = await axios.post(`BASE_URL/riders/update`, {status:status,order_number:order_number}, {
         headers: {
           Authorization: `Bearer ${token}`
         }

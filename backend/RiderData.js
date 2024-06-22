@@ -7,7 +7,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 1
+    "rating": 4.5,
+    "totalReview": 7
   },
   {
     "name": "Rider2",
@@ -17,7 +18,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 2
+    "rating": 3.4,
+    "totalReview": 3
   },
   {
     "name": "Rider3",
@@ -27,7 +29,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 3
+    "rating": 4.9,
+    "totalReview": 5
   },
   {
     "name": "Rider4",
@@ -37,7 +40,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 4
+    "rating": 4.2,
+    "totalReview": 6
   },
   {
     "name": "Rider5",
@@ -47,7 +51,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 5
+    "rating": 4.2,
+    "totalReview": 4
   },
   {
     "name": "Rider6",
@@ -57,7 +62,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 1
+    "rating": 3.2,
+    "totalReview": 2
   },
   {
     "name": "Rider7",
@@ -67,7 +73,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 2
+    "rating": 3.0,
+    "totalReview": 1
   },
   {
     "name": "Rider8",
@@ -77,7 +84,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 3
+    "rating": 3.5,
+    "totalReview": 5
   },
   {
     "name": "Rider9",
@@ -87,7 +95,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 4
+    "rating": 4.4,
+    "totalReview": 3
   },
   {
     "name": "Rider10",
@@ -97,7 +106,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 5
+    "rating": 4.5,
+    "totalReview": 7
   },
   {
     "name": "Rider11",
@@ -107,7 +117,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 1
+    "rating": 3.3,
+    "totalReview": 4
   },
   {
     "name": "Rider12",
@@ -117,7 +128,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 2
+    "rating": 3.4,
+    "totalReview": 6
   },
   {
     "name": "Rider13",
@@ -127,7 +139,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 3
+    "rating": 3.2,
+    "totalReview": 5
   },
   {
     "name": "Rider14",
@@ -137,7 +150,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 4
+    "rating": 4.5,
+    "totalReview": 3
   },
   {
     "name": "Rider15",
@@ -147,7 +161,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 5
+    "rating": 4.5,
+    "totalReview": 2
   },
   {
     "name": "Rider16",
@@ -157,7 +172,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 1
+    "rating": 2.4,
+    "totalReview": 1
   },
   {
     "name": "Rider17",
@@ -167,7 +183,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 2
+    "rating": 2.3,
+    "totalReview": 2
   },
   {
     "name": "Rider18",
@@ -177,7 +194,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 3
+    "rating": 3.2,
+    "totalReview": 5
   },
   {
     "name": "Rider19",
@@ -187,7 +205,8 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 4
+    "rating": 4.5,
+    "totalReview": 4
   },
   {
     "name": "Rider20",
@@ -197,6 +216,7 @@
     "all_orders": [],
     "delivered_order": [],
     "pending_order": [],
-    "rating": 5
+    "rating": 2.4,
+    "totalReview": 3
   }
 ]

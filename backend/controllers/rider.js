@@ -368,3 +368,8 @@ export const UpdateOrders = async (req, res) => {
   }
 
 
+export const RiderReview = async (req, res) => {
+
+
+  
+}

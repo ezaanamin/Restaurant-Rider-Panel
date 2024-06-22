@@ -11,7 +11,9 @@ import { useContext } from 'react';
 import { styles } from '../../styles/styles';
 import TabButton from '../../ components/TabButton';
 import OrdersDetails from '../../ components/OrdersDetails';
-function Home({ navigation }) {
+function Home({ }) {
+
+ 
   const dispatch = useDispatch(); 
   const [socket, setSocket] = useState(null); 
   const userContext = useContext(UserContext);
@@ -23,7 +25,7 @@ function Home({ navigation }) {
         const token = await SecureStore.getItemAsync('authToken');
       // console.log(token,'token')
    
-        const newsocket = io.connect('{BASE_URL}/', {
+        const newsocket = io.connect('BASE_URL', {
           query: {
             token: token
           }
@@ -42,7 +44,7 @@ function Home({ navigation }) {
 
         if(action.payload)
         {
-          // console.log(action.payload,'EZAAN');
+          console.log(action.payload,'EZAAN');
           SetRiderOrderData(action.payload);
         }
       } catch (error) {
@@ -54,26 +56,26 @@ function Home({ navigation }) {
   }, [dispatch]);
 
 
-  useEffect(() => {
-    let tokenAvailable = false;
+//   useEffect(() => {
+//     let tokenAvailable = false;
 
-    const checkToken = async () => {
-        const token = await SecureStore.getItemAsync('authToken');
-        if (token) {
-            tokenAvailable = true;
-        }
-    };
+//     const checkToken = async () => {
+//         const token = await SecureStore.getItemAsync('authToken');
+//         if (token) {
+//             tokenAvailable = true;
+//         }
+//     };
 
-    const removeListener = navigation.addListener("beforeRemove", (e) => {
-        if (tokenAvailable) {
-            e.preventDefault();
-        }
-    });
+//     const removeListener = navigation.addListener("beforeRemove", (e) => {
+//         if (tokenAvailable) {
+//             e.preventDefault();
+//         }
+//     });
 
-    checkToken(); 
+//     checkToken(); 
 
-    return removeListener;
-}, [navigation]);
+//     return removeListener;
+// }, [navigation]);
 
 
 

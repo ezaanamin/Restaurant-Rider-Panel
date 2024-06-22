@@ -12,9 +12,17 @@ const RiderSchema = new mongoose.Schema(
       type: Number,
       default: 0
     },
-    rating: Number,
+    rating: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 5,
+      set: v => Math.round(v * 10) / 10, // Rounds to one decimal place
+      get: v => Math.round(v * 10) / 10
+    },
+    totalReview:Number,
     assigned_order: [Number],
-    Notification:[Number]
+    notifications: [Number] // Corrected 'Notification' to 'notifications'
   },
   { timestamps: true }
 );

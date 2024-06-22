@@ -170,8 +170,12 @@ export const styles = StyleSheet.create({
     backgroundColor: lighter_color,
     margin: 20,
     height: 110,
-    width: 340,
-    borderRadius: 20, 
+    width: 360,
+    borderRadius: 20,
+    position: 'relative',
+    left:20
+
+ 
   
   },
 Orders:{
@@ -209,7 +213,7 @@ CustomersAddress:{
   justifyContent: 'space-around',
   position:"relative",
   bottom:5,
-  left:25.9
+  left:-22
 },
  OrdersDetailsButton: {
   fontSize: 14,
@@ -238,11 +242,22 @@ DeclineButton: {
 
  
 },
+ButtonsContainer2:{
+  flexDirection: 'row',
+  marginTop: 10, 
+  justifyContent: 'space-around',
+  position:"relative",
+  bottom:5,
+  left:-20
+  
+
+},
 OrdersDetailsButton2: {
   fontSize: 14,
   textAlign: 'center',
   backgroundColor: '#FF5722',
   borderRadius: 20,
+  width:20
   
 },
 
@@ -251,11 +266,20 @@ ShowRouteButton: {
   textAlign: 'center',
   backgroundColor: '#800080',
   borderRadius: 20,
-  width:200,
+  width:100,
   color:"#F5F5DC"
 
  
 },
+OverallRatingText:{
+textAlign:"center",
+fontSize:20,
+color:"white",
+marginTop:30
+
+
+
+}
 });
 
 

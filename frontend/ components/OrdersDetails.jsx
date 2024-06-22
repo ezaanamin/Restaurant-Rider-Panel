@@ -7,11 +7,25 @@ import Logo from ".././assets/rider.png"
 import { UpdateOrders } from '../redux/slice/API';
 import { useDispatch } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
+import { Linking, Platform } from 'react-native';
+
 
 const OrdersDetails = ({CustomersName,Order_Number,CustomersAddress,status}) => {
     const userContext = useContext(UserContext);
     const {RiderOrderData,SetRiderOrderData} = userContext;
     const dispach=useDispatch();
+
+    const openMaps = () => {
+        const latitude = 37.78825;
+        const longitude = -122.4324;
+        const label = 'Custom Label';
+        const url = Platform.select({
+          ios: `maps://app?daddr=${latitude},${longitude}&label=${label}`,
+          android: `geo:${latitude},${longitude}?q=${latitude},${longitude}(${label})`
+        });
+      
+        Linking.openURL(url);
+      };
     
 
     // useEffect(() => {
@@ -69,11 +83,18 @@ const OrdersDetails = ({CustomersName,Order_Number,CustomersAddress,status}) => 
                     </View>
                 ) : null}
                                {status === "On Route"  ? (
-                                            <View style={styles.ButtonsContainer}>
+                                            <View style={styles.ButtonsContainer2}>
                                         
-                                            <TouchableOpacity style={styles.OrdersDetailsButton2}>
+                                            <TouchableOpacity onPress={openMaps}  style={styles.OrdersDetailsButton2}>
                                                 <Text style={styles.ShowRouteButton}>Show Route</Text>
+                                                
                                             </TouchableOpacity>
+
+                                            <TouchableOpacity style={styles.OrdersDetailsButton2}>
+                                                <Text style={styles.AcceptButton}>Delivered</Text>
+                                                
+                                            </TouchableOpacity>
+                                          
                                         </View>
                                     ) : null}
 
