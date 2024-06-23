@@ -12,7 +12,6 @@ export async function authorizeToken(authorizationHeader,tokenheaders) {
   if(tokenheaders)
   {
    token = authorizationHeader.split(' ')[1].replace(/"/g, '');
-
   }
   if(!tokenheaders)
   {
@@ -369,7 +368,30 @@ export const UpdateOrders = async (req, res) => {
 
 
 export const RiderReview = async (req, res) => {
+  const authorizationHeader = req.headers['authorization'];
+
+  let user_id = '';
+  try {
+    let tokenheaders=true;
+    await authorizeToken(authorizationHeader,tokenheaders)
+    .then(decodedId => {
+      user_id = decodedId;
+      // console.log(userId, 'ezaan');
+    })
+    .catch(error => {
+      console.log("Token verification error:", error);
+    });  
+   
+  } catch (error) {
+    console.log("Token verification error:", error);
+    return res.status(500).json({ error: "Token verification failed" });
+  }
+    
+Rider.findById(user_id).then((doc)=>{
+
+  res.json({rating:doc.rating,totalRating:doc.totalReview})
 
 
-  
+})
+
 }

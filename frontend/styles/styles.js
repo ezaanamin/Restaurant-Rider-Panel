@@ -279,6 +279,18 @@ marginTop:30
 
 
 
+},
+Reviews:{
+  textAlign:"center",
+  color:"white",
+  fontSize:90
+
+},
+TotalReviews:{
+  textAlign:"center",
+  color:"white",
+  fontSize:20
+
 }
 });
 

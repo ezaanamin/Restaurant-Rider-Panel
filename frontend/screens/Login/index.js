@@ -53,7 +53,7 @@ function Login({ navigation }) {
         }
       } catch (error) {
         console.log("Error:", error); 
-        console.log(`BASE_URL/riders/login`);
+        console.log(`BASE_URLriders/login`);
         Alert.alert("Login Failed", "Invalid email or password. Please try again.");
       }
     }

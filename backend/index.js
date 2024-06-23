@@ -93,7 +93,7 @@ app.use('/payment',PaymentRoutes)
 
 const io = new Server(server, {
   cors: {
-    origin: "BASE_URL/", 
+    origin: "BASE_URL", 
     methods: ["GET", "POST"]
   }
 });

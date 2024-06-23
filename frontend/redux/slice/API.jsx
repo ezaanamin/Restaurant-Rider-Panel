@@ -7,7 +7,7 @@ export const LoginRider = createAsyncThunk(
   'post/postRequest',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`BASE_URL/riders/login`, data);
+      const response = await axios.post(`BASE_URLriders/login`, data);
       console.log("Response:", response);
       return response.data;
     } catch (error) {
@@ -25,7 +25,7 @@ export const RiderInformation = createAsyncThunk(
   'post/RiderInformation',
   async ({ rejectWithValue, token }) => {
     try {
-      const response = await axios.post(`BASE_URL/riders/information`, {}, {
+      const response = await axios.post(`BASE_URLriders/information`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -71,7 +71,7 @@ export const UpdateOrders = createAsyncThunk(
     // console.log(token,status,order_number);
 
     try {
-      const response = await axios.post(`BASE_URL/riders/update`, {status:status,order_number:order_number}, {
+      const response = await axios.post(`BASE_URLriders/update`, {status:status,order_number:order_number}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -88,6 +88,30 @@ export const UpdateOrders = createAsyncThunk(
     }
   }
 );
+
+export const RiderReview = createAsyncThunk(
+  'post/RiderReview',
+  async ({ token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`BASE_URLriders/review`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        // Network error or other non-HTTP error occurred
+        throw error;
+      }
+      
+      // Handle HTTP errors (e.g., 4xx, 5xx)
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
 
 
 export const APISlice = createSlice({
@@ -144,6 +168,19 @@ export const APISlice = createSlice({
         state.error = null;
       })
       .addCase(UpdateOrders.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      });
+      builder
+      .addCase(RiderReview.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(RiderReview.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data = action.payload;
+        state.error = null;
+      })
+      .addCase(RiderReview.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       });
