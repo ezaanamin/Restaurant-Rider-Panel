@@ -1,29 +1,23 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose from "mongoose";
 
-// Define RiderReview schema
-const RiderReviewSchema = new Schema({
-    rider_id: {
-        type:  mongoose.Schema.Types.ObjectId,
-        required: true
-    },
-    reviews: [{
-        customer_id: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true
-        },
-        rating: {
-            type: Number,
-            required: true
-        },
-        comment: {
-            type: String,
-            required: true
-        }
-    }]
+const RiderReviewSchema = new mongoose.Schema({
+  rider_id:mongoose.Schema.Types.ObjectId,
+  customer_id: {
+    type: String,
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true,
+    min: 1, 
+    max: 5
+  },
+  comment: {
+    type: String,
+    required: true
+  }
 });
 
-// Create model based on schema
-const RiderReview = mongoose.model('RiderReview', RiderReviewSchema);
 
-module.exports = RiderReview;
+export const RiderReview = mongoose.model(`RiderReview`,RiderReviewSchema);
+

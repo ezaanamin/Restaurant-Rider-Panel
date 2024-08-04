@@ -4,6 +4,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { createClient } from 'redis';
 import { io } from "../index.js";
+import { RiderReview } from "../model/RiderReviews.js";
 export async function authorizeToken(authorizationHeader,tokenheaders) {
   if (!authorizationHeader) {
     throw new Error('Not authorized');
@@ -367,7 +368,7 @@ export const UpdateOrders = async (req, res) => {
   }
 
 
-export const RiderReview = async (req, res) => {
+export const RiderReviewData = async (req, res) => {
   const authorizationHeader = req.headers['authorization'];
 
   let user_id = '';
@@ -393,5 +394,38 @@ Rider.findById(user_id).then((doc)=>{
 
 
 })
+
+}
+
+export const GetAllRiderReview =async (req,res)=>{
+  const authorizationHeader = req.headers['authorization'];
+  let user_id = '';
+  try{
+    let tokenheaders=true;
+    await authorizeToken(authorizationHeader,tokenheaders)
+    .then(decodedId => {
+      user_id = decodedId;
+      // console.log(userId, 'ezaan');
+    })
+    .catch(error => {
+      console.log("Token verification error:", error);
+    }); 
+
+
+  }
+  catch (error) {
+    console.log("Token verification error:", error);
+    return res.status(500).json({ error: "Token verification failed" });
+  }
+
+
+  RiderReview.find({rider_id:user_id}).then((doc)=>{
+
+    const reviews = doc[0];
+  
+
+
+  })
+
 
 }

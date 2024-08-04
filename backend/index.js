@@ -35,7 +35,7 @@ import http from "http"
 import { Server } from 'socket.io';
 import { authorizeToken } from "./controllers/rider.js"
 import { NewOrdersDisplay,PushNotification } from "./controllers/rider.js"
-
+import { RiderReview } from "./model/RiderReviews.js"
 dotenv.config();
 const app=express()
 app.use(bodyParser.json());
