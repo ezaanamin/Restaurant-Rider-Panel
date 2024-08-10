@@ -291,6 +291,29 @@ TotalReviews:{
   color:"white",
   fontSize:20
 
+},
+Progress: {
+  flexDirection: 'row', 
+  alignItems: 'center', 
+  margin: 20,
+  width: '80%',
+},
+progressBarContainer: {
+  flex: 1, 
+  height: 20,
+  backgroundColor: "#e0e0de",
+  borderRadius: 10,
+  marginLeft: 10, 
+},
+filler: {
+  height: '100%',
+  borderRadius: 10,
+},
+label: {
+  color: '#000',
+  fontWeight: 'bold',
+  fontSize: 16,
+  width: 100, 
 }
 });
 

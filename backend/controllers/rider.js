@@ -414,7 +414,7 @@ export const GetAllRiderReview =async (req,res)=>{
 
   }
   catch (error) {
-    console.log("Token verification error:", error);
+    console.log("Token verletification error:", error);
     return res.status(500).json({ error: "Token verification failed" });
   }
 
@@ -422,8 +422,58 @@ export const GetAllRiderReview =async (req,res)=>{
   RiderReview.find({rider_id:user_id}).then((doc)=>{
 
     const reviews = doc[0];
+    let length=reviews.reviews.length
+    let five_rating=0.0
+    let four_rating=0.0
+    let three_rating=0.0
+    let two_rating=0.0
+    for (let i=0;i<length;i++)
+    {
+      console.log(reviews.reviews[i].rating);
+      if(reviews.reviews[i].rating===5)
+      {
+        five_rating++;
+
+      }
+      if(reviews.reviews[i].rating===4)
+      {
+        four_rating++;
+
+      }
+      if(reviews.reviews[i].rating===3)
+      {
+        three_rating++;
+      }
+      if(reviews.reviews[i].rating===2)
+{
+  two_rating++;
+}
+
+
+
+    }
   
 
+
+
+five_rating=Math.floor(five_rating/length*100)
+four_rating=Math.floor(four_rating/length*100)
+three_rating=Math.floor(three_rating/length*100)
+two_rating=Math.floor(two_rating/length*100)
+
+
+
+
+const AllRating = [
+  { bgcolor: "#4B0082", label:"Excellent", completed: five_rating },
+  { bgcolor: "#6A0D91",label:"Good",  completed: four_rating },
+  { bgcolor: "#8A2BE2",label:"Average", completed: three_rating },
+  { bgcolor: "#A020F0",label:"Poor", completed: two_rating },
+
+
+];
+
+res.json(AllRating)
 
   })
 

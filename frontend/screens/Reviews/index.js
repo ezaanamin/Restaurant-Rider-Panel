@@ -5,11 +5,13 @@ import { useDispatch } from 'react-redux';
 import { RiderReviewData,RiderReviewCustomers } from '../../redux/slice/API';
 import * as SecureStore from 'expo-secure-store';
 import StarRating from 'react-native-star-rating';
+import ProgressBar from '../../ components/ProgressBar';
 
 function Review() {
 
   const [Review,SetReviews]=useState(0);
-  const [TotalRating,SetTotalRating]=useState(0)
+  const [TotalRating,SetTotalRating]=useState(0);
+  const [AllRating,SetAllRating]=useState([])
 
 const dispatch=useDispatch();
 useEffect(() => {
@@ -28,7 +30,8 @@ useEffect(() => {
           }
           if(result1.payload)
           {
-            console.log(result1.payload)
+            // console.log(result1.payload)
+            SetAllRating(result1.payload)
           }
 
       } else {
@@ -62,7 +65,9 @@ useEffect(() => {
 
 <Text style={styles.TotalReviews}>Based on {TotalRating} Review</Text>
 
-
+{AllRating.map((item, idx) => (
+        <ProgressBar label={item.label} key={idx} bgcolor={item.bgcolor} completed={item.completed} />
+      ))}
 </View>
   )
 }
