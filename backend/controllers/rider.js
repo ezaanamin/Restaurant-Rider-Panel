@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken"
 import { createClient } from 'redis';
 import { io } from "../index.js";
 import { RiderReview } from "../model/RiderReviews.js";
+import Customer from "../model/customers.js";
+
 export async function authorizeToken(authorizationHeader,tokenheaders) {
   if (!authorizationHeader) {
     throw new Error('Not authorized');
@@ -479,3 +481,70 @@ res.json(AllRating)
 
 
 }
+
+export const GetAllCustomersRiderReview = async (req, res) => {
+  const client = createClient();
+  await client.connect();
+  const authorizationHeader = req.headers['authorization'];
+  let user_id = '';
+
+  try {
+    const decodedId = await authorizeToken(authorizationHeader, true);
+    user_id = decodedId;
+  } catch (error) {
+    console.error("Token verification error:", error);
+    await client.disconnect(); 
+    return res.status(500).json({ error: "Token verification failed" });
+  }
+
+  const username = `${user_id} reviews`;
+  try {
+    const usernameCheck = await client.exists(username);
+
+    if (usernameCheck) {
+      const value = await client.get(username);
+      const userData = JSON.parse(value);
+      await client.disconnect();
+      return res.json(userData);
+    } else {
+      let customer_information = [];
+
+      const docs = await RiderReview.find({ rider_id: user_id });
+      const data = docs[0];
+
+      if (!data || !data.reviews) {
+        await client.disconnect(); 
+        return res.status(404).json({ error: "No reviews found for the rider" });
+      }
+
+      const promises = data.reviews.map(async review => {
+        const doc1 = await Customer.findById(review.customer_id);
+        return {
+          name: doc1.name,
+          review: review.comment,
+          rating: review.rating
+        };
+      });
+
+      try {
+        customer_information = await Promise.all(promises);
+
+   
+        await client.set(username, JSON.stringify(customer_information));
+        const expirationInSeconds = 3600;
+        await client.expire(username, expirationInSeconds);
+
+        await client.disconnect();
+        res.json(customer_information);
+      } catch (err) {
+        console.error('Error fetching customer information:', err);
+        await client.disconnect(); 
+        res.status(500).json({ error: "Error fetching customer information" });
+      }
+    }
+  } catch (error) {
+    console.error('Error interacting with Redis:', error);
+    await client.disconnect(); 
+    res.status(500).json({ error: "Error interacting with Redis" });
+  }
+};

@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { styles } from '../../styles/styles'
 import { View, Text, Image, TextInput, TouchableOpacity, Alert,Button,ScrollView } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { RiderReviewData,RiderReviewCustomers } from '../../redux/slice/API';
+import { RiderReviewData,RiderReviewCustomers,GetAllCustomersRiderReview } from '../../redux/slice/API';
 import * as SecureStore from 'expo-secure-store';
 import StarRating from 'react-native-star-rating';
 import ProgressBar from '../../ components/ProgressBar';
+import CustomersReview from '../../ components/CustomersReview';
+
 
 function Review() {
 
   const [Review,SetReviews]=useState(0);
   const [TotalRating,SetTotalRating]=useState(0);
   const [AllRating,SetAllRating]=useState([])
+  const [CustomersRating,SetCustomersRating]=useState([])
 
 const dispatch=useDispatch();
 useEffect(() => {
@@ -21,6 +24,7 @@ useEffect(() => {
       if (token) {
         const result = await dispatch(RiderReviewData({ token }));
         const result1 = await dispatch(RiderReviewCustomers({ token }));
+        const result2 = await dispatch(GetAllCustomersRiderReview({ token }));
 
        
         if(result.payload)
@@ -33,6 +37,12 @@ useEffect(() => {
             // console.log(result1.payload)
             SetAllRating(result1.payload)
           }
+          if(result2.payload)
+            {
+              // console.log(result2.payload)
+              SetCustomersRating(result2.payload)
+            
+            }
 
       } else {
         console.log('No token found');
@@ -68,6 +78,15 @@ useEffect(() => {
 {AllRating.map((item, idx) => (
         <ProgressBar label={item.label} key={idx} bgcolor={item.bgcolor} completed={item.completed} />
       ))}
+      <ScrollView >
+
+      {CustomersRating.map((item)=>{
+<CustomersReview name={item.name} rating={item.rating} comment={item.review}
+/>
+
+      })}
+      </ScrollView>
+
 </View>
   )
 }

@@ -134,6 +134,27 @@ export const RiderReviewCustomers = createAsyncThunk(
   }
 );
 
+export const GetAllCustomersRiderReview = createAsyncThunk(
+  'post/GetAllCustomersRiderReview',
+  async ({ token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`BASE_URLriders/customers/review`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        // Network error or other non-HTTP error occurred
+        throw error;
+      }
+      
+      // Handle HTTP errors (e.g., 4xx, 5xx)
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 
 
