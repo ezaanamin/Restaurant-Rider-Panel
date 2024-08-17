@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     borderRadius:10,
   },
   button: {
-    backgroundColor: '#7fa142', // Button color
+    backgroundColor: '#7fa142',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
     borderRadius:10
   },
   buttonText: {
-    color: '#fff', // Button text color
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
     textAlign:"center"
@@ -314,9 +314,12 @@ label: {
   fontWeight: 'bold',
   fontSize: 16,
   width: 100, 
+},
+
+EditProfile:{
+backgroundColor:"#6A8E3E",
+height:200,
+width:"100%"  
 }
 });
 
-
-
-//#800080

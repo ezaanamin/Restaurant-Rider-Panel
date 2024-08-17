@@ -54,6 +54,10 @@ useEffect(() => {
 
   fetchData();
 }, []);
+
+useEffect(()=>{
+  console.log(CustomersRating)
+},[CustomersRating])
   return (
     <View style={styles.HomePageMain}>
 
@@ -80,11 +84,14 @@ useEffect(() => {
       ))}
       <ScrollView >
 
-      {CustomersRating.map((item)=>{
-<CustomersReview name={item.name} rating={item.rating} comment={item.review}
-/>
-
-      })}
+      {CustomersRating.map((item, index) => (
+        <CustomersReview 
+          key={index} 
+          name={item.name} 
+          rating={item.rating} 
+          comment={item.review} 
+        />
+      ))}
       </ScrollView>
 
 </View>

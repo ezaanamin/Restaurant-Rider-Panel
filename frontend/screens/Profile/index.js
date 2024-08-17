@@ -4,6 +4,9 @@ import { View, Text, Image, TextInput, TouchableOpacity, Alert,Button,ScrollView
 function Profile() {
   return (
     <View style={styles.HomePageMain}>
+      <View style={styles.EditProfile}>
+        
+      </View>
 
     </View>
   )

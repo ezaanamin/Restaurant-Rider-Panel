@@ -15,7 +15,7 @@ function CustomersReview({rating,name,comment}) {
         fullStarColor={'#e6f2e6'}
         starSize={20}
       />
-      <Text style={{marginLeft:20}}>{name}</Text>
+      <Text style={{marginLeft:20,fontWeight:"bold"}}>{name}</Text>
 </View>
 <View style={{width:200,marginLeft:"auto",marginRight:"auto",display:"block",marginTop:10,marginBottom:10}}>
 
