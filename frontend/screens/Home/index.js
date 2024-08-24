@@ -150,6 +150,19 @@ if(activeTab=="Assigned")
 
 },[activeTab,RiderOrderData])
 
+useEffect(()=>{
+  let d = new Date();
+  let hours = d.getHours();
+  let minutes = d.getMinutes();
+  
+  // Add a leading zero to minutes if less than 10
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  
+  var time = hours + ":" + minutes;
+ 
+  
+},[])
+
 // useEffect(()=>{
 
 
@@ -206,7 +219,7 @@ if(activeTab=="Assigned")
     <View>
 
     {/* <Button title="Show alert" onPress={() => showAlert(3)} /> */}
-    {NewOrderModal_ ? (
+    {/* {NewOrderModal_ ? (
   <>
  
     <NewOrderModal 
@@ -215,7 +228,7 @@ if(activeTab=="Assigned")
       order_number={userContext.NewOrderData[0].order_number} 
     />
   </>
-) : null}
+) : null} */}
 
 <View style={styles.HomePageMain}>
 

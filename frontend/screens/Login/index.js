@@ -40,10 +40,18 @@ function Login({ navigation }) {
           Alert.alert("Login Failed", action.payload.error);
         } else if (action.payload.token) {
           try {
-            await SecureStore.setItemAsync(
-              'authToken',
-              action.payload.token
-            );
+            let d = new Date();
+            let hours = d.getHours();
+            let minutes = d.getMinutes();
+            
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            
+            let time = hours + ":" + minutes; 
+const data = {
+  authToken: action.payload.token,
+  time: time
+};
+await SecureStore.setItemAsync('authData', JSON.stringify(data));
             // console.log("Token stored successfully.");
             navigation.navigate('MainTabs');
           } catch (error) {
@@ -53,7 +61,7 @@ function Login({ navigation }) {
         }
       } catch (error) {
         console.log("Error:", error); 
-        console.log(`BASE_URLriders/login`);
+        // console.log(`BASE_URLriders/login`);
         Alert.alert("Login Failed", "Invalid email or password. Please try again.");
       }
     }
@@ -73,22 +81,32 @@ function Login({ navigation }) {
   // };
 
   useEffect(() => {
-    const getToken = async () => {
+    const getTokenAndTime = async () => {
       try {
-        const token = await SecureStore.getItemAsync('authToken');
-        console.log(token,'token')
-        if (token) {
-          navigation.navigate('MainTabs');
-        } else {
-        
+        const storedData = await SecureStore.getItemAsync('authData');
+        if (storedData) {
+          const { authToken, time } = JSON.parse(storedData);
+          console.log(authToken, 'authToken');
+          console.log(time, 'time');
+          let d = new Date();
+          let hours = d.getHours();
+          let minutes = d.getMinutes();
+          
+          minutes = minutes < 10 ? '0' + minutes : minutes;
+          
+          let current_time = hours + ":" + minutes;
+          let difference=current_time-time
+          console.log(difference)
+          // if (authToken) {
+          //   navigation.navigate('MainTabs');
+          // }
         }
       } catch (error) {
-        console.error('Error while getting token:', error);
-        
+        console.error('Error while getting token and time:', error);
       }
     };
-
-    getToken();
+  
+    getTokenAndTime();
   }, [navigation]);
   return (
 <View style={styles.container}>

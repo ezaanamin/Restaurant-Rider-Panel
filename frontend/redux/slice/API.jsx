@@ -7,7 +7,7 @@ export const LoginRider = createAsyncThunk(
   'post/postRequest',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`BASE_URLriders/login`, data);
+      const response = await axios.post(`BASE_URL/riders/login`, data);
       console.log("Response:", response);
       return response.data;
     } catch (error) {
@@ -25,7 +25,7 @@ export const RiderInformation = createAsyncThunk(
   'post/RiderInformation',
   async ({ rejectWithValue, token }) => {
     try {
-      const response = await axios.post(`BASE_URLriders/information`, {}, {
+      const response = await axios.post(`BASE_URL/riders/information`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -71,7 +71,7 @@ export const UpdateOrders = createAsyncThunk(
     // console.log(token,status,order_number);
 
     try {
-      const response = await axios.post(`BASE_URLriders/update`, {status:status,order_number:order_number}, {
+      const response = await axios.post(`BASE_URL/riders/update`, {status:status,order_number:order_number}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -93,7 +93,7 @@ export const RiderReviewData = createAsyncThunk(
   'post/RiderReviewData',
   async ({ token }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`BASE_URLriders/review`, {}, {
+      const response = await axios.post(`BASE_URL/riders/review`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -116,7 +116,7 @@ export const RiderReviewCustomers = createAsyncThunk(
   'post/RiderReviewCustomers',
   async ({ token }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`BASE_URLriders/customers/rider/review`, {}, {
+      const response = await axios.post(`BASE_URL/riders/customers/rider/review`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -138,7 +138,7 @@ export const GetAllCustomersRiderReview = createAsyncThunk(
   'post/GetAllCustomersRiderReview',
   async ({ token }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`BASE_URLriders/customers/review`, {}, {
+      const response = await axios.post(`BASE_URL/riders/customers/review`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
