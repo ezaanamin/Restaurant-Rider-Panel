@@ -40,16 +40,13 @@ function Login({ navigation }) {
           Alert.alert("Login Failed", action.payload.error);
         } else if (action.payload.token) {
           try {
-            let d = new Date();
-            let hours = d.getHours();
-            let minutes = d.getMinutes();
-            
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            
-            let time = hours + ":" + minutes; 
+        
+            let date = new Date()
+          
 const data = {
   authToken: action.payload.token,
-  time: time
+  date:date,
+  time:date.getTime()
 };
 await SecureStore.setItemAsync('authData', JSON.stringify(data));
             // console.log("Token stored successfully.");
@@ -66,40 +63,41 @@ await SecureStore.setItemAsync('authData', JSON.stringify(data));
       }
     }
   
-}); // <--- Closing parenthesis for useFormik
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     console.log('This will run after 1 second!');
-  //     useEffectCallback();
-  //   }, 1000);
-
-  //   // No cleanup function is returned, so the effect runs indefinitely
-  // }, []); 
-  //   const useEffectCallback = () => {
-  //   // Code to execute after the 1-second delay
-  //   console.log('useEffectCallback called!');
-  // };
-
+}); 
   useEffect(() => {
     const getTokenAndTime = async () => {
       try {
         const storedData = await SecureStore.getItemAsync('authData');
         if (storedData) {
-          const { authToken, time } = JSON.parse(storedData);
+          const { authToken,date,time } = JSON.parse(storedData);
           console.log(authToken, 'authToken');
-          console.log(time, 'time');
-          let d = new Date();
-          let hours = d.getHours();
-          let minutes = d.getMinutes();
-          
-          minutes = minutes < 10 ? '0' + minutes : minutes;
-          
-          let current_time = hours + ":" + minutes;
-          let difference=current_time-time
-          console.log(difference)
-          // if (authToken) {
-          //   navigation.navigate('MainTabs');
-          // }
+
+          let new_date = new Date()
+          // await SecureStore.deleteItemAsync('authData');
+          if(new_date>date)
+          {
+           
+            await SecureStore.deleteItemAsync('authData');
+          }
+          else
+          {
+
+        
+            let diff =  new_date.getTime()-time
+            let diffInHours =parseInt(Math.abs( diff / (1000 * 60 * 60)));
+       
+                
+            if(diffInHours>=2)
+            {
+        
+              await SecureStore.deleteItemAsync('authData');
+            }
+
+          }
+         
+          if (authToken) {
+            navigation.navigate('MainTabs');
+          }
         }
       } catch (error) {
         console.error('Error while getting token and time:', error);

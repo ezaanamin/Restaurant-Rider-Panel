@@ -81,7 +81,8 @@ export const LoginRider = async (req, res) => {
 export const RiderInformation = async (req, res) => {
   try {
     const authorizationHeader = req.headers['authorization'];
-    // console.log(authorizationHeader);
+    console.log(authorizationHeader,'ezaan')
+    console.log(authorizationHeader);
     if (!authorizationHeader) {
       return res.status(401).send('Not authorized');
     }

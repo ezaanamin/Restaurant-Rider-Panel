@@ -43,10 +43,10 @@ const OrdersDetails = ({CustomersName,Order_Number,CustomersAddress,status}) => 
     
     
     const UpdateOrder=async (status,order_number)=>{
-        const token = await SecureStore.getItemAsync('authToken');
+        const { authToken } = JSON.parse(storedData);
         // alert(status);
         // alert(order_number)
-        let action= await dispach(UpdateOrders({token:token,status:status,order_number:order_number}));
+        let action= await dispach(UpdateOrders({token:authToken,status:status,order_number:order_number}));
         if(action.payload)
             {
                 console.log(action.payload,'orders starks');

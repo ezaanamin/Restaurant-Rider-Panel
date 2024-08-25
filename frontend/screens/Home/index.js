@@ -22,17 +22,19 @@ function Home({ }) {
   useEffect(() => {
     const getTokenAndFetchOrders = async () => {
       try {
-        const token = await SecureStore.getItemAsync('authToken');
+        const storedData = await SecureStore.getItemAsync('authData');
+        const { authToken } = JSON.parse(storedData);
+
       // console.log(token,'token')
    
         const newsocket = io.connect('BASE_URL', {
           query: {
-            token: token
+            token: authToken
           }
         });
         
         newsocket.on('connect', () => {
-          console.log('Connected to server with token:', token);
+          console.log('Connected to server with token:', authToken);
         });
         setSocket(newsocket)
         newsocket.on('connection', data => {
@@ -40,8 +42,8 @@ function Home({ }) {
         });
 
        
-        const action = await dispatch(RiderInformation({ token }));
-
+        const action = await dispatch(RiderInformation({ authToken }));
+console.log(action,)
         if(action.payload)
         {
           console.log(action.payload,'EZAAN');
@@ -150,18 +152,7 @@ if(activeTab=="Assigned")
 
 },[activeTab,RiderOrderData])
 
-useEffect(()=>{
-  let d = new Date();
-  let hours = d.getHours();
-  let minutes = d.getMinutes();
-  
-  // Add a leading zero to minutes if less than 10
-  minutes = minutes < 10 ? '0' + minutes : minutes;
-  
-  var time = hours + ":" + minutes;
- 
-  
-},[])
+
 
 // useEffect(()=>{
 

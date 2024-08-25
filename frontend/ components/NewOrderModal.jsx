@@ -12,7 +12,8 @@ const NewOrderModal = ({ Customer_name, address, order_number }) => {
   const userContext = useContext(UserContext);
   const { SetNewOrderModal, SetRiderOrderData,NewOrderModal_ } =userContext;
   const handleConfirm = async ({status,order_number}) => {
-    const token = await SecureStore.getItemAsync('authToken');
+    const storedData = await SecureStore.getItemAsync('authData');
+    const { authToken } = JSON.parse(storedData);
     // console.log(result,'ezaan')
   
     // orders_data.push({ status: status, order_number: order_number })
@@ -23,7 +24,7 @@ console.log(order_number,'order numbers');
 console.log(status,'status');
 
     try {
-      const action = await dispatch(UpdateOrders({ token: token, status: status, order_number: order_number }));
+      const action = await dispatch(UpdateOrders({ token: authToken, status: status, order_number: order_number }));
       if (action.payload) {
         console.log(action.payload,'action payload');
         // await SetRiderOrderData([]);

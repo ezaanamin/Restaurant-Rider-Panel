@@ -20,11 +20,12 @@ const dispatch=useDispatch();
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const token = await SecureStore.getItemAsync('authToken');
-      if (token) {
-        const result = await dispatch(RiderReviewData({ token }));
-        const result1 = await dispatch(RiderReviewCustomers({ token }));
-        const result2 = await dispatch(GetAllCustomersRiderReview({ token }));
+      const storedData = await SecureStore.getItemAsync('authData');
+      const { authToken } = JSON.parse(storedData);
+      if (authToken) {
+        const result = await dispatch(RiderReviewData({ authToken }));
+        const result1 = await dispatch(RiderReviewCustomers({ authToken }));
+        const result2 = await dispatch(GetAllCustomersRiderReview({ authToken }));
 
        
         if(result.payload)
@@ -45,7 +46,7 @@ useEffect(() => {
             }
 
       } else {
-        console.log('No token found');
+        console.log('No authToken found');
       }
     } catch (error) {
       console.log('Failed to fetch data:', error);
